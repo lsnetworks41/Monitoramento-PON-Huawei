@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-08-27T15:02:55Z</date>
+    <groups>
+        <group>
+            <name>GPON</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>OLT-HUAWEI_PON</template>
+            <name>OLT-HUAWEI_PON</name>
+            <templates>
+                <template>
+                    <name>Template ICMP Ping</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>GPON</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>★CPU★</name>
+                </application>
+                <application>
+                    <name>★Quantidade ONTs/PON★</name>
+                </application>
+                <application>
+                    <name>★Temperatura★</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Quantidade ONT`s por PON</name>
+                    <key>data_pon[{$COMMUNITY_OLT} {$IP}]</key>
+                    <delay>10h</delay>
+                    <lifetime>1d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#PON} - ONT`s Online %</name>
+                            <type>CALCULATED</type>
+                            <key>onts.ponline[{#IFINDEX}]</key>
+                            <delay>6m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <params>(100*last(&quot;qt_on[{$COMMUNITY_OLT},{$IP},{#IFINDEX}]&quot;))/last(&quot;qt_total[{$COMMUNITY_OLT},{$IP},{#IFINDEX}]&quot;)</params>
+                            <applications>
+                                <application>
+                                    <name>★Quantidade ONTs/PON★</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Quantidade ONT`s Offline - {#PON}</name>
+                            <key>qt_off[{$COMMUNITY_OLT},{$IP},{#IFINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>★Quantidade ONTs/PON★</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Quantidade ONT`s Online - {#PON}</name>
+                            <key>qt_on[{$COMMUNITY_OLT},{$IP},{#IFINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>★Quantidade ONTs/PON★</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Quantidade ONT`s Total - {#PON}</name>
+                            <key>qt_total[{$COMMUNITY_OLT},{$IP},{#IFINDEX}]</key>
+                            <delay>5m</delay>
+                            <history>7d</history>
+                            <trends>90d</trends>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>★Quantidade ONTs/PON★</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
