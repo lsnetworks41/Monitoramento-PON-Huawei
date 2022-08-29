@@ -45,3 +45,4 @@ if(preg_match_all($int, $snmp_int, $saida_int)){
 	echo json_encode($data);
 }
 
+//Desenvolvido por Lsnetworks Solutions
